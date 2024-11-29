@@ -1,13 +1,14 @@
 services:
-  npm:
-    image: jc21/nginx-proxy-manager:latest
+  app:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: nginxproxymanager
     restart: unless-stopped
-    ports:
-      - "80:80"
-      - "81:81"
-      - "443:443"
-    environment:
-      DB_SQLITE_FILE: "/data/database.sqlite"
     volumes:
       - ./data:/data
       - ./letsencrypt:/etc/letsencrypt
+    ports:
+      - '80:80'
+      - '443:443'
+      - '81:81'
+    networks:
+      - proxiable
